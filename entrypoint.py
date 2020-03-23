@@ -1,3 +1,5 @@
+#!/usr/bin/python
+
 import os
 from algorithmia_ci import build_wait, test_algo, publish_algo
 
