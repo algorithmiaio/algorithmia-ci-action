@@ -1,6 +1,6 @@
 # action.yml
 name: 'Algorithmia CI'
-description: 'End-to-end Continuous Integration & Deployment for Algorithms on Algorithmia.com"
+description: 'End-to-end Continuous Integration & Deployment for Algorithms on Algorithmia.com'
 branding:
   icon: 'alert-circle'
   color: 'purple'
