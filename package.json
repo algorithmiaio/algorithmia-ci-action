@@ -1,6 +1,6 @@
 
 {
-  "name": "algorithmia-ci",
+  "name": "algorithmia-ci-action",
   "version": "0.1.0",
   "description": "Continous Integration/Delivery for Algorithmia",
   "main": "entrypoint.py",
