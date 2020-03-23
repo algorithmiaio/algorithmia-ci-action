@@ -1,19 +1,12 @@
 
 {
-  "name": "algorithmia-ci-action",
+  "name": "algorithmia-ci",
   "version": "0.1.0",
   "description": "Continous Integration/Delivery for Algorithmia",
   "main": "entrypoint.py",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/algorithmiaio/algorithmia-ci-action.git"
-  },
-   "scripts": {
-    "build": "tsc && ncc build && node lib/misc/generate-docs.js",
-    "format": "prettier --write **/*.ts",
-    "format-check": "prettier --check **/*.ts",
-    "lint": "eslint src/**/*.ts",
-    "test": "jest"
   },
   "keywords": [
     "algorithmiaio",
