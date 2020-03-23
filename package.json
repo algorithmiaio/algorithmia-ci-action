@@ -1,0 +1,25 @@
+
+{
+  "name": "algorithmia-ci",
+  "version": "0.1.0",
+  "description": "Continous Integration/Delivery for Algorithmia",
+  "main": "entrypoint.py",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/algorithmiaio/algorithmia-ci-action.git"
+  },
+  "keywords": [
+    "algorithmiaio",
+    "actions",
+    "Continuous Integration",
+    "Continuous Delivery",
+    "Learning",
+    "API Management",
+  ],
+  "author": "Algorithmia",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/algorithmiaio/algorithmia-ci-action/issues"
+  },
+}
+
