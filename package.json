@@ -8,6 +8,13 @@
     "type": "git",
     "url": "git+https://github.com/algorithmiaio/algorithmia-ci-action.git"
   },
+   "scripts": {
+    "build": "tsc && ncc build && node lib/misc/generate-docs.js",
+    "format": "prettier --write **/*.ts",
+    "format-check": "prettier --check **/*.ts",
+    "lint": "eslint src/**/*.ts",
+    "test": "jest"
+  },
   "keywords": [
     "algorithmiaio",
     "actions",
