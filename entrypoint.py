@@ -1,5 +1,5 @@
 import os
-from algorithmia_ci import build_wait, test_algo, publish_algo
+from .algorithmia_ci import build_wait, test_algo, publish_algo
 
 if __name__ == "__main__":
     regular_key = os.getenv("INPUT_REGULAR_API_KEY")
