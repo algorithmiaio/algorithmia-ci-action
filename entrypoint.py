@@ -9,14 +9,14 @@ if __name__ == "__main__":
     publish_schema = os.getenv("INPUT_VERSION_SCHEMA")
     algo_hash = os.getenv("GITHUB_SHA")
 
-    print(os.listdir("/github/workspace"))
 
     if not api_key:
         raise Exception("field 'api_key' not defined in workflow")
     if not api_address:
         raise Exception("field 'api_address' not defined in workflow")
     if not algo_name:
-        raise Exception("field 'algo_name' not defined in workflow")
+        raise Exception(os.listdir("/github/workspace"))
+        # raise Exception("field 'algo_name' not defined in workflow")
     if not case_data:
         raise Exception("field 'test_cases' not defined in workflow")
     if not publish_schema:
