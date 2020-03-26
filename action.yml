@@ -5,10 +5,7 @@ branding:
   icon: 'alert-circle'
   color: 'purple'
 inputs:
-  regular_api_key:
-    description: 'Your typical Algorithmia API key'
-    required: true
-  mgmt_api_key:
+  api_key:
     description: 'Your algorithm management capable Algorithmia API key'
     required: true
   api_address:
@@ -30,8 +27,7 @@ runs:
   using: 'docker'
   image: 'Dockerfile'
   args:
-    - ${{ inputs.regular_api_key }}
-    - ${{ inputs.mgmt_api_key }}
+    - ${{ inputs.api_key }}
     - ${{ inputs.api_address }}
     - ${{ inputs.algorithm_name }}
     - ${{ inputs.test_cases }}
