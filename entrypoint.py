@@ -6,10 +6,10 @@ from algorithmia_ci import build_wait, test_algo, publish_algo
 if __name__ == "__main__":
     api_key = os.getenv("INPUT_API_KEY")
     api_address = os.getenv("INPUT_API_ADDRESS")
-    algo_name = os.getenv("INPUT_ALGORITHM_NAME")
-    case_data = os.getenv("INPUT_TEST_CASES")
     publish_schema = os.getenv("INPUT_VERSION_SCHEMA")
     algo_hash = os.getenv("GITHUB_SHA")
+
+    print(os.listdir("/github/workspace"))
 
     if not api_key:
         raise Exception("field 'api_key' not defined in workflow")
