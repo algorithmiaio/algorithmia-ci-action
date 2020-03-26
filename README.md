@@ -6,22 +6,13 @@ An algorithmia github Action to test and deploy github backed Algorithmia.com al
 
 ```
 inputs:
-  regular_api_key:
-    description: 'Your typical Algorithmia API key'
-    required: true
-  mgmt_api_key:
-    description: 'Your algorithm management capable Algorithmia API key'
+  api_key:
+    description: 'Your master Algorithmia API key'
     required: true
   api_address:
     description: 'The API address for the Algorithmia Cluster you wish to connect to'
     required: false
     default: 'https://api.algorithmia.com'
-  algorithm_name:
-    description: 'The name of the Algorithm you want to test'
-    required: true
-  test_cases:
-    description: 'A list of Json Case objects that describe the desired test cases'
-    required: True
   version_schema:
     description: 'identifier to describe how to promote this release'
     required: false
@@ -29,16 +20,16 @@ inputs:
 ```
 
 ```
-  regular_api_key - (required) - An Algorithmia api key that has execute access for the algorithm you wish to test, read more about that [here](https://algorithmia.com/developers/platform/customizing-api-keys)
-  mgmt_api_key - (required) - your Algorithmia Management API key, which you can learn about [here](https://algorithmia.com/developers/algorithm-development/algorithm-management).
+  regular_api_key - (required) - An Algorithmia api key that has execute access for the algorithm you wish to test; make sure it has manage access. read more about that [here](https://algorithmia.com/developers/platform/customizing-api-keys)
   api_address - (optional) - The Algorithmia API cluster address you wish to connect to, if using a private cluster; please provide the correct path to your environment.
-  algorithm_name - (required) - The algorithmia algorithm name for project you're testing. This algorithm name must refer to the github repository you attach this action to in order to work properly.
   version_schema - (optional) - The [semantic version](https://semver.org/) parameter that will get incremented whenever this action gets triggered. May be "Major", "Minor", or "Revision"
-  test_cases - (required) - a stringified json list containing test cases to try your algorithm with, if any of the test cases fails - this action will return with an exception indicating which case failed.
 ```
 
+# File inspection
+This action inspects your github repo and expects a properly configured Algorithmia Algorithm repository. This means that the `algorithmia.conf` file must be available.
+Beyond that, an additional file must be provided. A file called TEST_CASES.json must exist at the root of your algorithm directory, and be configured to match the following schema:
 
-# Case Schema
+## Test Case Schema
 Your test cases should follow the following json schema
 ```
 [
@@ -51,4 +42,4 @@ Your test cases should follow the following json schema
 ]
 ```
 
-`input` and `expected_output` will be expected to be the raw input/output that the algorithm you're testing should expect.
+`input` and `expected_output` will be expected to be the raw input/output that the algorithm you're testing should expect. Please ensure that your TEST_CASES.json file is fully json compatible.

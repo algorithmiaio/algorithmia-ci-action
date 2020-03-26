@@ -5,22 +5,13 @@ branding:
   icon: 'alert-circle'
   color: 'purple'
 inputs:
-  regular_api_key:
-    description: 'Your typical Algorithmia API key'
-    required: true
-  mgmt_api_key:
-    description: 'Your algorithm management capable Algorithmia API key'
+  api_key:
+    description: 'Your master Algorithmia API key'
     required: true
   api_address:
     description: 'The API address for the Algorithmia Cluster you wish to connect to'
     required: false
     default: 'https://api.algorithmia.com'
-  algorithm_name:
-    description: 'The name of the Algorithm you want to test'
-    required: true
-  test_cases:
-    description: 'A list of Json Case objects that describe the desired test cases'
-    required: True
   version_schema:
     description: 'identifier to describe how to promote this release'
     required: false
@@ -30,9 +21,6 @@ runs:
   using: 'docker'
   image: 'Dockerfile'
   args:
-    - ${{ inputs.regular_api_key }}
-    - ${{ inputs.mgmt_api_key }}
+    - ${{ inputs.api_key }}
     - ${{ inputs.api_address }}
-    - ${{ inputs.algorithm_name }}
-    - ${{ inputs.test_cases }}
     - ${{ inputs.version_schema }}
