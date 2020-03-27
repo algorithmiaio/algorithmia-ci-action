@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/python3
 
 import os, json
 from algorithmia_ci import build_wait, test_algo, publish_algo
