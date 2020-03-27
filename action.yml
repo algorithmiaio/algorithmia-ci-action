@@ -12,16 +12,13 @@ inputs:
     description: 'The API address for the Algorithmia Cluster you wish to connect to'
     required: false
     default: 'https://api.algorithmia.com'
-  algorithm_name:
-    description: 'The name of the Algorithm you want to test'
-    required: true
-  test_cases:
-    description: 'A list of Json Case objects that describe the desired test cases'
-    required: True
   version_schema:
     description: 'identifier to describe how to promote this release'
     required: false
     default: "minor"
+  path:
+    description: 'directory name for the local project stored in /github/workspace due to an "actions/checkout" command'
+    required: true
 
 runs:
   using: 'docker'
@@ -29,6 +26,5 @@ runs:
   args:
     - ${{ inputs.api_key }}
     - ${{ inputs.api_address }}
-    - ${{ inputs.algorithm_name }}
-    - ${{ inputs.test_cases }}
+    - ${{ inputs.path }}
     - ${{ inputs.version_schema }}

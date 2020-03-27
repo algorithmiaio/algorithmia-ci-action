@@ -33,4 +33,6 @@ if __name__ == "__main__":
         build_wait(api_key, api_address, algo_name, algo_hash)
         test_algo(api_key, api_address, case_data, algo_name, algo_hash)
         publish_algo(api_key, api_address, publish_schema, algo_name, algo_hash)
+    else:
+        raise Exception("actions/checkout on the local repo must be run before this action can be completed")
 
