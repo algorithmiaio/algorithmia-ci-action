@@ -5,12 +5,12 @@ def publish_algo(mgmt_api_key, api_address, algo_schema, algo_name, algo_hash):
     client = Algorithmia.client(api_key=mgmt_api_key, api_address=api_address)
 
     algo = client.algo("{}/{}".format(algo_name, algo_hash))
-    results = algo.versions(1).results
-    if len(results) > 0:
-        cur_version = results[0]['version_info']['semantic_version']
-        print("--- last release version : {} ---".format(cur_version))
-    else:
-        print("--- working with fresh project (no previous release found)")
+    # results = algo.versions(1).results
+    # if len(results) > 0:
+    #     cur_version = results[0]['version_info']['semantic_version']
+    #     print("--- last release version : {} ---".format(cur_version))
+    # else:
+    #     print("--- working with fresh project (no previous release found)")
 
     if algo_schema not in ["major", "minor", "revision"]:
         raise Exception("{} is not considered a valid algorithm version schema".format(algo_schema))
