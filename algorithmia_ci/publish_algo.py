@@ -5,7 +5,6 @@ def publish_algo(mgmt_api_key, api_address, algo_schema, algo_name, algo_hash):
     client = Algorithmia.client(api_key=mgmt_api_key, api_address=api_address)
 
     algo = client.algo("{}/{}".format(algo_name, algo_hash))
-    _ = algo.versions(1)
     results = algo.versions(1).results
     if len(results) > 0:
         cur_version = results[0]['version_info']['semantic_version']
