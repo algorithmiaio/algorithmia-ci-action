@@ -28,7 +28,7 @@ if __name__ == "__main__":
             config_data = json.load(f)
         with open("{}/{}".format(repo_path, "TEST_CASES.json")) as f:
             case_data = json.load(f)
-        algo_name = "algo://{}/{}".format(config_data['algouser'], config_data['algoname'])
+        algo_name = "algo://{}/{}".format(config_data['username'], config_data['algoname'])
 
         build_wait(api_key, api_address, algo_name, algo_hash)
         test_algo(api_key, api_address, case_data, algo_name, algo_hash)
