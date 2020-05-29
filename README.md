@@ -3,7 +3,7 @@ An algorithmia github Action to test and deploy github backed Algorithmia.com al
 When attached as a workflow for an Algorithmia algorithm, can automatically deploy new versions when provided tests pass.
 
 For this action to function, the github action `actions/checkout` must be called before this action, as we search for key files in your algorithm repository for simplicity.
-An example of this is below.
+An example workflow of this is below, however if you want to jump into a full algorithm example click [here](https://github.com/algorithmiaio/algorithmia_ci).
 
 
 # Action Input
@@ -81,7 +81,7 @@ jobs:
         ref: ${{github.sha}}
         path: algorithm
     - name: Algorithmia CI
-      uses: algorithmiaio/algorithmia-ci-action@v1.0.0
+      uses: algorithmiaio/algorithmia-ci-action@v1.0.1
       with:
         # Your master Algorithmia API key
         api_key: ${{ secrets.mgmt_api_key }}
