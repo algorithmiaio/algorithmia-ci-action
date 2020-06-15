@@ -1,7 +1,7 @@
 
 {
   "name": "algorithmia-ci",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Continous Integration/Delivery for Algorithmia",
   "main": "entrypoint.py",
   "repository": {
