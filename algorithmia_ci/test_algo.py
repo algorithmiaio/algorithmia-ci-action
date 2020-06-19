@@ -1,4 +1,5 @@
 import Algorithmia
+from Algorithmia.errors import AlgorithmException
 import json
 
 
@@ -8,6 +9,8 @@ def parse_json(stringdata):
         return data
     except Exception:
         raise Exception("{} is not json compatible, please check", stringdata)
+
+
 
 
 def test_algo(regular_api_key, api_address, case_data, algo_name, algo_hash):
@@ -25,12 +28,12 @@ def test_algo(regular_api_key, api_address, case_data, algo_name, algo_hash):
         else:
             traversal_tree = None
         name = case['case_name']
-        output = client.algo("{}/{}".format(algo_name, algo_hash)).pipe(input).result
         print("testing case: {}".format(name))
-        if traversal_tree:
-            for elm in traversal_tree:
-                output = output[elm]
         if type == "EXACT_MATCH":
+            output = client.algo("{}/{}".format(algo_name, algo_hash)).pipe(input).result
+            if traversal_tree:
+                for elm in traversal_tree:
+                    output = output[elm]
             if output == expected:
                 print("case: {} -- success".format(name))
             else:
@@ -38,6 +41,10 @@ def test_algo(regular_api_key, api_address, case_data, algo_name, algo_hash):
                 failures.append(failure)
                 print("case: {} -- fail".format(name))
         elif type == "GREATER_OR_EQUAL":
+            output = client.algo("{}/{}".format(algo_name, algo_hash)).pipe(input).result
+            if traversal_tree:
+                for elm in traversal_tree:
+                    output = output[elm]
             if output >= expected:
                 print("case: {} -- success".format(name))
             else:
@@ -45,12 +52,41 @@ def test_algo(regular_api_key, api_address, case_data, algo_name, algo_hash):
                 failures.append(failure)
                 print("case: {} -- fail".format(name))
         elif type == "LESS_OR_EQUAL":
+            output = client.algo("{}/{}".format(algo_name, algo_hash)).pipe(input).result
+            if traversal_tree:
+                for elm in traversal_tree:
+                    output = output[elm]
             if output <= expected:
                 print("case: {} -- success".format(name))
             else:
                 failure = {"output": output, "expected_output": expected, "case_name": name}
                 failures.append(failure)
                 print("case: {} -- fail".format(name))
+        elif type == "NO_EXCEPTION":
+            try:
+                _ = client.algo("{}/{}".format(algo_name, algo_hash)).pipe(input).result
+                print("case: {} -- success".format(name))
+            except AlgorithmException as e:
+                failure = {"output": e.message, "case_name": name}
+                failures.append(failure)
+                print("case: {} -- fail".format(name))
+            except Exception as e:
+                failure = {"output": str(e), "case_name": name}
+                failures.append(failure)
+                print("case: {} -- fail".format(name))
+        elif type == "EXCEPTION":
+            try:
+                output = client.algo("{}/{}".format(algo_name, algo_hash)).pipe(input).result
+                failure = {"output": output, "case_name": name}
+                failures.append(failure)
+                print("case: {} -- fail".format(name))
+            except AlgorithmException:
+                print("case: {} -- success".format(name))
+            except Exception as e:
+                failure = {"output": str(e), "case_name": name}
+                failures.append(failure)
+                print("case: {} -- fail".format(name))
+
         else:
             raise Exception("case type '{}' not implemented".format(type))
 
