@@ -18,10 +18,10 @@ def test_algo(regular_api_key, api_address, case_data, algo_name, algo_hash):
     failures = []
     for case in case_data:
         input = case['input']
-        if "expected_output" in input:
-            expected = input['expected_output']
+        if "expected_output" in case:
+            expected = case['expected_output']
         else:
-            expected = "'expected_output' not defined"
+            expected = None
         if 'type' in case:
             type = case['type']
         else:
