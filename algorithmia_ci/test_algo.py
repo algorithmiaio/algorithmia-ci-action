@@ -31,40 +31,34 @@ def test_algo(regular_api_key, api_address, case_data, algo_name, algo_hash):
         else:
             traversal_tree = None
         name = case['case_name']
-        print("testing case: {}".format(name))
+        print("--- testing case: {} ---".format(name))
         if type == "EXACT_MATCH":
             output = client.algo("{}/{}".format(algo_name, algo_hash)).pipe(input).result
             if traversal_tree:
                 for elm in traversal_tree:
                     output = output[elm]
             if output == expected:
-                print("case: {} -- success".format(name))
             else:
                 failure = {"output": output, "expected_output": expected, "case_name": name}
                 failures.append(failure)
-                print("case: {} -- fail".format(name))
         elif type == "GREATER_OR_EQUAL":
             output = client.algo("{}/{}".format(algo_name, algo_hash)).pipe(input).result
             if traversal_tree:
                 for elm in traversal_tree:
                     output = output[elm]
             if output >= expected:
-                print("case: {} -- success".format(name))
             else:
                 failure = {"output": output, "expected_output": expected, "case_name": name}
                 failures.append(failure)
-                print("case: {} -- fail".format(name))
         elif type == "LESS_OR_EQUAL":
             output = client.algo("{}/{}".format(algo_name, algo_hash)).pipe(input).result
             if traversal_tree:
                 for elm in traversal_tree:
                     output = output[elm]
             if output <= expected:
-                print("case: {} -- success".format(name))
             else:
                 failure = {"output": output, "expected_output": expected, "case_name": name}
                 failures.append(failure)
-                print("case: {} -- fail".format(name))
         elif type == "NO_EXCEPTION":
             try:
                 _ = client.algo("{}/{}".format(algo_name, algo_hash)).pipe(input).result
@@ -72,23 +66,22 @@ def test_algo(regular_api_key, api_address, case_data, algo_name, algo_hash):
             except AlgorithmException as e:
                 failure = {"output": e.message, "case_name": name}
                 failures.append(failure)
-                print("case: {} -- fail".format(name))
+                pass
             except Exception as e:
                 failure = {"output": str(e), "case_name": name}
                 failures.append(failure)
-                print("case: {} -- fail".format(name))
+                pass
         elif type == "EXCEPTION":
             try:
                 output = client.algo("{}/{}".format(algo_name, algo_hash)).pipe(input).result
                 failure = {"output": output, "case_name": name}
                 failures.append(failure)
-                print("case: {} -- fail".format(name))
             except AlgorithmException:
-                print("case: {} -- success".format(name))
+                pass
             except Exception as e:
                 failure = {"output": str(e), "case_name": name}
                 failures.append(failure)
-                print("case: {} -- fail".format(name))
+                pass
 
         else:
             raise Exception("case type '{}' not implemented".format(type))
@@ -101,4 +94,4 @@ def test_algo(regular_api_key, api_address, case_data, algo_name, algo_hash):
                                                                                        failure['output'])
         raise Exception(fail_msg)
     else:
-        print("all test cases pass for {}/{}".format(algo_name, algo_hash))
+        print("--- all test cases pass for {}/{} ---".format(algo_name, algo_hash))
