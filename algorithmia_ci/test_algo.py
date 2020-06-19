@@ -97,7 +97,7 @@ def test_algo(regular_api_key, api_address, case_data, algo_name, algo_hash):
         fail_msg = "At least one test case failed:\n"
         for failure in failures:
             fail_msg += "case_name: {}\nexpected_output: {}\nreal_output: {}\n".format(failure['case_name'],
-                                                                                       failure['expected_output'],
+                                                                                       failure.get('expected_output', "None") ,
                                                                                        failure['output'])
         raise Exception(fail_msg)
     else:
