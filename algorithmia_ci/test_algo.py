@@ -21,7 +21,7 @@ def test_algo(regular_api_key, api_address, case_data, algo_name, algo_hash):
         if "expected_output" in input:
             expected = input['expected_output']
         else:
-            expected = None
+            expected = "'expected_output' not defined"
         if 'type' in case:
             type = case['type']
         else:
