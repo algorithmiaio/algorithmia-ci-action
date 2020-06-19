@@ -11,11 +11,10 @@ def parse_json(stringdata):
         raise Exception("{} is not json compatible, please check", stringdata)
 
 
-
-
 def test_algo(regular_api_key, api_address, case_data, algo_name, algo_hash):
     client = Algorithmia.client(api_key=regular_api_key, api_address=api_address)
     failures = []
+    successes = []
     for case in case_data:
         input = case['input']
         if "expected_output" in case:
@@ -38,6 +37,8 @@ def test_algo(regular_api_key, api_address, case_data, algo_name, algo_hash):
                 for elm in traversal_tree:
                     output = output[elm]
             if output == expected:
+                success = {"output": output, "expected_output": expected, "case_name": name}
+                successes.append(success)
             else:
                 failure = {"output": output, "expected_output": expected, "case_name": name}
                 failures.append(failure)
@@ -47,6 +48,8 @@ def test_algo(regular_api_key, api_address, case_data, algo_name, algo_hash):
                 for elm in traversal_tree:
                     output = output[elm]
             if output >= expected:
+                success = {"output": output, "expected_output": expected, "case_name": name}
+                successes.append(success)
             else:
                 failure = {"output": output, "expected_output": expected, "case_name": name}
                 failures.append(failure)
@@ -56,13 +59,16 @@ def test_algo(regular_api_key, api_address, case_data, algo_name, algo_hash):
                 for elm in traversal_tree:
                     output = output[elm]
             if output <= expected:
+                success = {"output": output, "expected_output": expected, "case_name": name}
+                successes.append(success)
             else:
                 failure = {"output": output, "expected_output": expected, "case_name": name}
                 failures.append(failure)
         elif type == "NO_EXCEPTION":
             try:
                 _ = client.algo("{}/{}".format(algo_name, algo_hash)).pipe(input).result
-                print("case: {} -- success".format(name))
+                success = {"output": None, "expected_output": expected, "case_name": name}
+                successes.append(success)
             except AlgorithmException as e:
                 failure = {"output": e.message, "case_name": name}
                 failures.append(failure)
@@ -77,7 +83,8 @@ def test_algo(regular_api_key, api_address, case_data, algo_name, algo_hash):
                 failure = {"output": output, "case_name": name}
                 failures.append(failure)
             except AlgorithmException:
-                pass
+                success = {"output": None, "expected_output": expected, "case_name": name}
+                successes.append(success)
             except Exception as e:
                 failure = {"output": str(e), "case_name": name}
                 failures.append(failure)
@@ -86,11 +93,15 @@ def test_algo(regular_api_key, api_address, case_data, algo_name, algo_hash):
         else:
             raise Exception("case type '{}' not implemented".format(type))
 
+    print("--- testing complete ---")
+    print("sucessful tests {}/{}".format(str(len(successes)), str(len(successes) + len(failures))))
+
     if len(failures) > 0:
         fail_msg = "At least one test case failed:\n"
         for failure in failures:
             fail_msg += "case_name: {}\nexpected_output: {}\nreal_output: {}\n".format(failure['case_name'],
-                                                                                       failure.get('expected_output', "None") ,
+                                                                                       failure.get('expected_output',
+                                                                                                   "None"),
                                                                                        failure['output'])
         raise Exception(fail_msg)
     else:
