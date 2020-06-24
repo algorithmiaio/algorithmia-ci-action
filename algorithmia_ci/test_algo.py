@@ -19,7 +19,7 @@ def call_algo(client, algo_name, algo_hash, input, attempt_num=0):
         if attempt_num <= 10:
             attempt_num += 1
             time.sleep(attempt_num)
-            call_algo(client, algo_name, algo_hash, input, attempt_num)
+            return call_algo(client, algo_name, algo_hash, input, attempt_num)
         else:
             raise Exception("attempted {} times.\n", e)
 
