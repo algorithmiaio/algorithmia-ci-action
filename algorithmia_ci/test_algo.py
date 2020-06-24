@@ -16,12 +16,12 @@ def call_algo(client, algo_name, algo_hash, input, attempt_num=0):
         output = client.algo("{}/{}".format(algo_name, algo_hash)).pipe(input).result
         return output
     except AlgorithmException as e:
-        if "not found" in e.message and attempt_num <= 3:
+        if attempt_num <= 10:
             attempt_num += 1
             time.sleep(attempt_num)
             call_algo(client, algo_name, algo_hash, input, attempt_num)
         else:
-            raise e
+            raise Exception("attempted {} times.\n", e)
 
 def test_algo(regular_api_key, api_address, case_data, algo_name, algo_hash):
     client = Algorithmia.client(api_key=regular_api_key, api_address=api_address)
