@@ -37,7 +37,7 @@ def wait_for_result(api_key, api_address, algo_name, build_id):
             if result['status'] == u'succeeded':
                 waiting = False
             else:
-                log_data = get_api_request(url_logs, api_key)
+                log_data = get_api_request(url_logs, api_key, algo_name)
                 raise Exception("build failure:\n{}".format(log_data['logs']))
         else:
             time.sleep(5)

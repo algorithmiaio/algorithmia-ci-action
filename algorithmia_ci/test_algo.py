@@ -1,7 +1,7 @@
 import Algorithmia
 from Algorithmia.errors import AlgorithmException
 import json
-
+import time
 
 def parse_json(stringdata):
     try:
@@ -10,6 +10,18 @@ def parse_json(stringdata):
     except Exception:
         raise Exception("{} is not json compatible, please check", stringdata)
 
+
+def call_algo(client, algo_name, algo_hash, input, attempt_num=0):
+    try:
+        output = client.algo("{}/{}".format(algo_name, algo_hash)).pipe(input).result
+        return output
+    except AlgorithmException as e:
+        if "not found" in e.message and attempt_num <= 3:
+            attempt_num += 1
+            time.sleep(attempt_num)
+            call_algo(client, algo_name, algo_hash, input, attempt_num)
+        else:
+            raise e
 
 def test_algo(regular_api_key, api_address, case_data, algo_name, algo_hash):
     client = Algorithmia.client(api_key=regular_api_key, api_address=api_address)
