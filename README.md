@@ -1,4 +1,4 @@
-# algorithmia-ci action
+# algorithmia ci/cd action
 An algorithmia github Action to test and deploy github backed Algorithmia.com algorithms. 
 When attached as a workflow for an Algorithmia algorithm, can automatically deploy new versions when provided tests pass.
 
