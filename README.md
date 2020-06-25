@@ -101,14 +101,14 @@ jobs:
         ref: ${{github.sha}}
         path: algorithm
     - name: Algorithmia CI
-      uses: algorithmiaio/algorithmia-ci-action@v1.0.1
+      uses: algorithmiaio/algorithmia-ci-action@v1.2.3
       with:
         # Your master Algorithmia API key
         api_key: ${{ secrets.mgmt_api_key }}
         # The API address for the Algorithmia Cluster you wish to connect to
         api_address: https://api.algorithmia.com
         # identifier to describe how to promote this release ('major', 'minor', 'revision')
-        version_schema: minor
+        version_schema: revision
         # the path variable you defined in the actions/checkout action triggered before this one.
         path: algorithm
 ```
