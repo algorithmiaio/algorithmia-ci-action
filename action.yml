@@ -1,5 +1,5 @@
 # action.yml
-name: 'Algorithmia CI'
+name: 'Algorithmia CI/CD'
 description: 'End-to-end Continuous Integration & Deployment for Algorithms on Algorithmia.com'
 branding:
   icon: 'alert-circle'
